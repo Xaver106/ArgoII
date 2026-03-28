@@ -4,8 +4,10 @@
   meta.domain = "argo2.xaver106.de";
 
   inventory.machines = {
-    # Define machines here.
-    # server = { };
+    iris-vps01 = {
+      deploy.targetHost = "root@78.46.239.83";
+      tags = [ "server" ];
+    };
   };
 
   secrets.age.plugins = [
