@@ -14,6 +14,16 @@
     "age-plugin-yubikey"
   ];
 
+  vars.settings = {
+    secretStore = "age";
+    recipients.default = [
+      "age1yubikey1qfrh49yvepx0vn7twhwpjqesfq5zqkum6lmy2ydaj2xympg0dramvt5yxgy" # Yubikey
+      "age1yubikey1qvdwrmcxlqmh27eltkufxthh9lzv3gykr6qx76m8jd004dyl8r38yx8zzcn" # Backup Yubikey
+    ];
+  };
+
+  
+
   # Docs: See https://docs.clan.lol/latest/services/definition/
   inventory.instances = {
 
