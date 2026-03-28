@@ -8,6 +8,10 @@
     # server = { };
   };
 
+  secrets.age.plugins = [
+    "age-plugin-yubikey"
+  ];
+
   # Docs: See https://docs.clan.lol/latest/services/definition/
   inventory.instances = {
 
@@ -20,7 +24,9 @@
         # Insert the public key that you want to use for SSH access.
         # All keys will have ssh access to all machines ("tags.all" means 'all machines').
         # Alternatively set 'users.users.root.openssh.authorizedKeys.keys' in each machine
-        "admin-machine-1" = "PASTE_YOUR_KEY_HERE";
+        "1Password" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlG2On4t+CXVgkvgdTsMkDLH/tCDLUL7QtnFJGwkCnP";
+        "Yubikey" = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMtwoZrnYD5TiN9WJPPDU6OiyzCX5EIPp7042a1QK+FWAAAABHNzaDo=";
+        "YubiKey-Backup" = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMbfHcZ1InSOIUxdkIRNCCdqf+hZ5XA8yJtZFHauFJsiAAAABHNzaDo=";
       };
     };
 
@@ -30,10 +36,11 @@
       module = {
         name = "users";
       };
-      roles.default.tags.all = { };
+      roles.default.tags = [ "server" ];
       roles.default.settings = {
         user = "root";
         prompt = true;
+        share = true;
       };
     };
 
