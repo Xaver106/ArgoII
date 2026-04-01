@@ -1,6 +1,13 @@
 {
-  inputs.clan-core.url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
-  inputs.nixpkgs.follows = "clan-core/nixpkgs";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    clan-core = {
+      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+      # url = "path:/home/xaver106/src/clan-core";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
     {
@@ -38,8 +45,6 @@
           [
             "x86_64-linux"
             "aarch64-linux"
-            "aarch64-darwin"
-            "x86_64-darwin"
           ]
           (system: {
             default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
