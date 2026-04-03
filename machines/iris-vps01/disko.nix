@@ -1,7 +1,7 @@
 # ---
 # schema = "ext4-single-disk"
 # [placeholders]
-# mainDisk = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_114729792" 
+# mainDisk = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_115163687" 
 # ---
 # This file was automatically generated!
 # CHANGING this configuration requires wiping and reinstalling the machine
@@ -14,8 +14,8 @@
   disko.devices = {
     disk = {
       main = {
-        name = "main-5c4f22971b07466bb2e2327d462b44cc";
-        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_114729792";
+        name = "main-80f3e36bd74e49ad9efee5add56d20bc";
+        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_115163687";
         type = "disk";
         content = {
           type = "gpt";
