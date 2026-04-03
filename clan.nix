@@ -32,6 +32,7 @@
       roles.default.tags = [ "all" ];
       roles.default.extraModules = [
         ./common
+        ./modules
       ];
     };
 
