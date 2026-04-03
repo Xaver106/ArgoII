@@ -27,6 +27,14 @@
   # Docs: See https://docs.clan.lol/latest/services/definition/
   inventory.instances = {
 
+    importer = {
+      module.name = "importer";
+      roles.default.tags = [ "all" ];
+      roles.default.extraModules = [
+        ./common
+      ];
+    };
+
     # Docs: https://docs.clan.lol/latest/services/official/sshd/
     # SSH service for secure remote access to machines.
     # Generates persistent host keys and configures authorized keys.
