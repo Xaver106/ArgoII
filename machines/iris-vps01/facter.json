@@ -23,7 +23,7 @@
     },
     "bridge": [
       {
-        "index": 10,
+        "index": 8,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -107,7 +107,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 11,
+        "index": 9,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -175,7 +175,7 @@
         "module_alias": "pci:v00008086d00002918sv00001AF4sd00001100bc06sc01i00"
       },
       {
-        "index": 12,
+        "index": 10,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -259,7 +259,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 15,
+        "index": 13,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -343,7 +343,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 17,
+        "index": 15,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -427,7 +427,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 19,
+        "index": 17,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -483,7 +483,7 @@
         "module_alias": "pci:v00008086d000029C0sv00001AF4sd00001100bc06sc00i00"
       },
       {
-        "index": 21,
+        "index": 19,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -567,7 +567,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 22,
+        "index": 20,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -651,7 +651,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 23,
+        "index": 21,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -735,7 +735,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 25,
+        "index": 23,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -819,7 +819,7 @@
         "module_alias": "pci:v00001B36d0000000Csv00001B36sd00000000bc06sc04i00"
       },
       {
-        "index": 27,
+        "index": 25,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -905,8 +905,8 @@
     ],
     "cdrom": [
       {
-        "index": 36,
-        "attached_to": 9,
+        "index": 34,
+        "attached_to": 7,
         "class_list": [
           "cdrom",
           "scsi",
@@ -1074,7 +1074,6 @@
           "invpcid",
           "avx512f",
           "avx512dq",
-          "rdseed",
           "adx",
           "smap",
           "avx512ifma",
@@ -1116,12 +1115,12 @@
           "srso",
           "ibpb_no_ret"
         ],
-        "bogo": 4792.79,
+        "bogo": 4593.1,
         "cache": 1024,
-        "units": 4,
+        "units": 2,
         "physical_id": 0,
-        "siblings": 4,
-        "cores": 4,
+        "siblings": 2,
+        "cores": 2,
         "fpu": true,
         "fpu_exception": true,
         "cpuid_level": 13,
@@ -1137,8 +1136,8 @@
     ],
     "disk": [
       {
-        "index": 37,
-        "attached_to": 32,
+        "index": 35,
+        "attached_to": 30,
         "class_list": [
           "disk",
           "scsi",
@@ -1190,7 +1189,7 @@
           "range": 16
         },
         "unix_device_names": [
-          "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_114729792",
+          "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_115163687",
           "/dev/disk/by-path/pci-0000:06:00.0-scsi-0:0:0:0",
           "/dev/sda"
         ],
@@ -1205,7 +1204,7 @@
         "resources": [
           {
             "type": "disk_geo",
-            "cylinders": 19919,
+            "cylinders": 9959,
             "heads": 255,
             "sectors": 63,
             "size": "0x0",
@@ -1214,7 +1213,7 @@
           {
             "type": "size",
             "unit": "sectors",
-            "value_1": 320004096,
+            "value_1": 160006144,
             "value_2": 512
           }
         ],
@@ -1232,7 +1231,7 @@
     ],
     "graphics_card": [
       {
-        "index": 14,
+        "index": 12,
         "attached_to": 0,
         "class_list": [
           "graphics_card",
@@ -1346,8 +1345,8 @@
     ],
     "hub": [
       {
-        "index": 38,
-        "attached_to": 13,
+        "index": 36,
+        "attached_to": 11,
         "class_list": [
           "usb",
           "hub"
@@ -1433,8 +1432,8 @@
         "module_alias": "usb:v1D6Bp0002d0614dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 40,
-        "attached_to": 13,
+        "index": 38,
+        "attached_to": 11,
         "class_list": [
           "usb",
           "hub"
@@ -1512,7 +1511,7 @@
     ],
     "memory": [
       {
-        "index": 7,
+        "index": 5,
         "attached_to": 0,
         "class_list": [
           "memory"
@@ -1532,22 +1531,22 @@
           {
             "type": "mem",
             "base": 0,
-            "range": 8115929088,
+            "range": 3993870336,
             "enabled": true,
             "access": "read_write",
             "prefetch": "unknown"
           },
           {
             "type": "phys_mem",
-            "range": 8053063680
+            "range": 4026531840
           }
         ]
       }
     ],
     "monitor": [
       {
-        "index": 34,
-        "attached_to": 14,
+        "index": 32,
+        "attached_to": 12,
         "class_list": [
           "monitor"
         ],
@@ -1694,8 +1693,8 @@
     ],
     "mouse": [
       {
-        "index": 39,
-        "attached_to": 38,
+        "index": 37,
+        "attached_to": 36,
         "class_list": [
           "mouse",
           "usb"
@@ -1813,8 +1812,8 @@
     ],
     "network_controller": [
       {
-        "index": 28,
-        "attached_to": 16,
+        "index": 26,
+        "attached_to": 14,
         "class_list": [
           "network_controller"
         ],
@@ -1869,8 +1868,8 @@
     ],
     "network_interface": [
       {
-        "index": 41,
-        "attached_to": 28,
+        "index": 39,
+        "attached_to": 26,
         "class_list": [
           "network_interface"
         ],
@@ -1911,7 +1910,7 @@
         ]
       },
       {
-        "index": 42,
+        "index": 40,
         "attached_to": 0,
         "class_list": [
           "network_interface"
@@ -1936,8 +1935,8 @@
     ],
     "pci": [
       {
-        "index": 8,
-        "attached_to": 25,
+        "index": 6,
+        "attached_to": 23,
         "class_list": [
           "pci",
           "unknown"
@@ -2027,8 +2026,8 @@
         "module_alias": "pci:v00001AF4d00001043sv00001AF4sd00001100bc07sc80i00"
       },
       {
-        "index": 16,
-        "attached_to": 27,
+        "index": 14,
+        "attached_to": 25,
         "class_list": [
           "pci",
           "unknown"
@@ -2126,7 +2125,7 @@
         "module_alias": "pci:v00001AF4d00001041sv00001AF4sd00001100bc02sc00i00"
       },
       {
-        "index": 18,
+        "index": 16,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -2209,8 +2208,8 @@
         "module_alias": "pci:v00008086d00002930sv00001AF4sd00001100bc0Csc05i00"
       },
       {
-        "index": 24,
-        "attached_to": 23,
+        "index": 22,
+        "attached_to": 21,
         "class_list": [
           "pci",
           "unknown"
@@ -2299,8 +2298,8 @@
         "module_alias": "pci:v00001AF4d00001044sv00001AF4sd00001100bc00scFFi00"
       },
       {
-        "index": 26,
-        "attached_to": 15,
+        "index": 24,
+        "attached_to": 13,
         "class_list": [
           "pci",
           "unknown"
@@ -2383,7 +2382,7 @@
     ],
     "storage_controller": [
       {
-        "index": 9,
+        "index": 7,
         "attached_to": 0,
         "class_list": [
           "storage_controller",
@@ -2445,7 +2444,7 @@
           },
           {
             "type": "irq",
-            "base": 50,
+            "base": 46,
             "triggered": 0,
             "enabled": true
           },
@@ -2463,7 +2462,7 @@
           "command": 1031,
           "header_type": 0,
           "secondary_bus": 0,
-          "irq": 50,
+          "irq": 46,
           "prog_if": 1
         },
         "driver": "ahci",
@@ -2477,8 +2476,8 @@
         "module_alias": "pci:v00008086d00002922sv00001AF4sd00001100bc01sc06i01"
       },
       {
-        "index": 20,
-        "attached_to": 12,
+        "index": 18,
+        "attached_to": 10,
         "class_list": [
           "storage_controller",
           "pci"
@@ -2573,8 +2572,8 @@
     },
     "unknown": [
       {
-        "index": 29,
-        "attached_to": 24,
+        "index": 27,
+        "attached_to": 22,
         "class_list": [
           "unknown"
         ],
@@ -2604,8 +2603,8 @@
         "module_alias": "virtio:d00000004v00001AF4"
       },
       {
-        "index": 30,
-        "attached_to": 8,
+        "index": 28,
+        "attached_to": 6,
         "class_list": [
           "unknown"
         ],
@@ -2635,8 +2634,8 @@
         "module_alias": "virtio:d00000003v00001AF4"
       },
       {
-        "index": 31,
-        "attached_to": 14,
+        "index": 29,
+        "attached_to": 12,
         "class_list": [
           "unknown"
         ],
@@ -2666,8 +2665,8 @@
         "module_alias": "virtio:d00000010v00001AF4"
       },
       {
-        "index": 32,
-        "attached_to": 20,
+        "index": 30,
+        "attached_to": 18,
         "class_list": [
           "unknown"
         ],
@@ -2697,8 +2696,8 @@
         "module_alias": "virtio:d00000008v00001AF4"
       },
       {
-        "index": 33,
-        "attached_to": 26,
+        "index": 31,
+        "attached_to": 24,
         "class_list": [
           "unknown"
         ],
@@ -2728,7 +2727,7 @@
         "module_alias": "virtio:d00000005v00001AF4"
       },
       {
-        "index": 35,
+        "index": 33,
         "attached_to": 0,
         "class_list": [
           "unknown"
@@ -2777,8 +2776,8 @@
     ],
     "usb_controller": [
       {
-        "index": 13,
-        "attached_to": 17,
+        "index": 11,
+        "attached_to": 15,
         "class_list": [
           "usb_controller",
           "pci"
@@ -2943,7 +2942,7 @@
           "name": "Multi-bit",
           "value": 6
         },
-        "max_size": "0x7d0000",
+        "max_size": "0x3e8000",
         "error_handle": 65534,
         "slots": 1
       }
@@ -2960,7 +2959,7 @@
         "handle": 4865,
         "array_handle": 4096,
         "start_address": "0x100000000",
-        "end_address": "0x274000000",
+        "end_address": "0x17a000000",
         "part_width": 1
       }
     ],
@@ -2975,7 +2974,7 @@
         "error_handle": 65534,
         "width": 0,
         "ecc_bits": 0,
-        "size": 8192000,
+        "size": 4096000,
         "form_factor": {
           "hex": "0009",
           "name": "DIMM",
