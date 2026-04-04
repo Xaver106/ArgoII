@@ -12,9 +12,21 @@ let
   cfg = config.services.mumble-server;
   settingsFormat = pkgs.formats.iniWithGlobalSection { };
   configFile = settingsFormat.generate "mumble-server.ini" {
-      sections.Ice = cfg.iceSettings;
-      globalSection = cfg.settings;
-    };
+    sections.Ice = cfg.iceSettings;
+    globalSection = cfg.settings;
+  };
+  acmeHostDir = config.security.acme.certs."${cfg.useACMEHost}".directory;
+  passFile =
+    if (cfg.superuserPwFile != null) then
+      cfg.superuserPwFile
+    else
+      (
+        if (cfg.superuserPw != "") then
+          (pkgs.writeText "mumble-superuser-password.txt" cfg.superuserPw)
+        else
+          null
+      );
+  superuserCredentialName = "mumble-superuser-password";
 in
 {
   options = {
@@ -40,6 +52,16 @@ in
         '';
       };
 
+      useACMEHost = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = "mumble.example.com";
+        description = ''
+          Host of an existing Let's Encrypt certificate to use for TLS.
+          Note that this option does not create any certificates and it doesn't add subdomains to existing ones you will need to create them manually using {option}`security.acme.certs`.*
+        '';
+      };
+
       stateDir = mkOption {
         type = types.str;
         default = "mumble-server";
@@ -49,38 +71,35 @@ in
       superuserPw = mkOption {
         type = types.str;
         default = "";
-        description = "SuperUser password used by murmur --set-su-pw. This account bypasses ACL checks, so prefer superuserPwFile for secret-managed deployments.";
+        description = ''
+          SuperUser password used by murmur --set-su-pw. This account bypasses ACL checks, so prefer superuserPwFile for secret-managed deployments.
+          The password is written to the store in plaintext, so using superuserPwFile with a secret-managed file is recommended for production deployments.
+        '';
       };
 
       superuserPwFile = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "Path to a file containing the SuperUser password. The file should contain only the password value (no trailing newline).";
+        description = ''
+          Path to a file containing the SuperUser password. The file should contain only the password value (no trailing newline).
+          The file is loaded using systemd's LoadCredential's option, thus it should be owned by root.
+        '';
       };
 
       settings = mkOption {
+        description = ''
+          Global options written to mumble-server.ini.
+          Configure [Ice] section keys via services.mumble-server.iceSettings.
+          Reference: https://github.com/mumble-voip/mumble/blob/master/auxiliary_files/mumble-server.ini
+        '';
+        default = { };
         type = types.submodule {
-          freeformType = settingsFormat.lib.type.atom;
-          default = { };
-          description = ''
-            Global options written to mumble-server.ini.
-            Configure [Ice] section keys via services.mumble-server.iceSettings.
-            Reference: https://github.com/mumble-voip/mumble/blob/master/auxiliary_files/mumble-server.ini
-          '';
+          freeformType = settingsFormat.type;
           options = {
             database = mkOption {
               type = types.externalPath;
               default = "/var/lib/${cfg.stateDir}/mumble-server.sqlite";
               description = "SQLite database path. Keep this inside the state directory to ensure the service user has write access.";
-            };
-            dbDriver = mkOption {
-              type = types.enum [
-                "sqlite"
-                "mysql"
-                "postgresql"
-              ];
-              default = "sqlite";
-              description = "Database backend to use: sqlite, mysql, or postgresql.";
             };
             ice = mkOption {
               type = types.str;
@@ -137,21 +156,31 @@ in
               default = false;
               description = "Obfuscate connecting users' IP addresses in log files. This does not affect the user information view in clients.";
             };
+            sslCert = mkOption {
+              type = types.nullOr types.str;
+              default = if (cfg.useACMEHost != null) then "${acmeHostDir}/fullchain.pem" else null;
+              description = "Path to TLS certificate. This option is required to enable TLS. Uses the ACMEHost files by default.";
+            };
+            sslKey = mkOption {
+              type = types.nullOr types.str;
+              default = if (cfg.useACMEHost != null) then "${acmeHostDir}/key.pem" else null;
+              description = "Path to TLS private key. This option is required to enable TLS. Uses the ACMEHost files by default.";
+            };
           };
         };
       };
       iceSettings = mkOption {
+        description = "Options written to the [Ice] section of mumble-server.ini.";
+        default = { };
         type = types.submodule {
-          freeformType = settingsFormat.lib.type.atom;
-          default = { };
-          description = "Options written to the [Ice] section of mumble-server.ini.";
+          freeformType = settingsFormat.type;
           options = {
-            Ice.Warn.UnknownProperties = {
+            "Ice.Warn.UnknownProperties" = mkOption {
               type = types.int;
               default = 1;
               description = "Ice runtime option controlling warnings for unknown properties. See ZeroC Ice documentation.";
             };
-            Ice.MessageSizeMax = {
+            "Ice.MessageSizeMax" = mkOption {
               type = types.int;
               default = 65536;
               description = "Ice runtime option for maximum message size. See ZeroC Ice documentation.";
@@ -178,30 +207,19 @@ in
     };
     users.groups = lib.optionalAttrs (cfg.group == "mumble-server") { mumble-server = { }; };
 
-    systemd.services.mumble-server = let
-      passFile =
-      if (cfg.superuserPwFile != null) then
-        cfg.superuserPwFile
-      else
-        (
-          if (cfg.superuserPw != "") then
-            (pkgs.writeText "mumble-superuser-password.txt" cfg.superuserPw)
-          else
-            null
-        );
-    in {
+    systemd.services.mumble-server = {
       description = "Mumble server";
       documentation = [ "man:mumble-server(1)" ];
       after = [ "network.target" ];
       wants = [ "network-online.target" ];
       preStart = lib.optionalString (passFile != null) ''
-        ${lib.getExe cfg.package} -i ${configFile} --set-su-pw "$(<${passFile})"
+        ${lib.getExe cfg.package} -ini ${configFile} -fg -supw "$(<"$CREDENTIALS_DIRECTORY/${superuserCredentialName}")"
       '';
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${lib.getExe cfg.package} -i ${configFile}"; 
+        ExecStart = "${lib.getExe cfg.package} -ini ${configFile} -fg";
         ExecReload = "kill -s SIGUSR1 $MAINPID";
         User = cfg.user;
         Group = cfg.group;
@@ -234,6 +252,7 @@ in
         ProtectProc = "invisible";
         PrivateMounts = true;
         PrivateUsers = true;
+        LoadCredential = lib.optionals (passFile != null) [ "${superuserCredentialName}:${passFile}" ];
       };
     };
   };
