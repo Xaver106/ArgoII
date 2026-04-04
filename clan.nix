@@ -5,7 +5,7 @@
 
   inventory.machines = {
     iris-vps01 = {
-      deploy.targetHost = "root@78.46.239.83";
+      deploy.targetHost = "root@23.88.62.63";
       tags = [ "server" ];
     };
   };
