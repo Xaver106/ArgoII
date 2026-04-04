@@ -26,7 +26,6 @@ let
         else
           null
       );
-  superuserCredentialName = "mumble-superuser-password";
 in
 {
   options = {
@@ -86,6 +85,16 @@ in
         '';
       };
 
+      settingsOverrideFile = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Path to an INI file containing secret runtime overrides for mumble-server.ini.
+          The file is loaded using systemd LoadCredential and merged into the generated config in preStart.
+          When the same option appears in both files, values in this override file take precedence.
+        '';
+      };
+
       settings = mkOption {
         description = ''
           Global options written to mumble-server.ini.
@@ -124,7 +133,7 @@ in
             serverpassword = mkOption {
               type = types.str;
               default = "";
-              description = "Server password required for clients to join when non-empty.";
+              description = "Server password required for clients to join when non-empty. Prefer settingsOverrideFile for secret-managed deployments.";
             };
             bandwidth = mkOption {
               type = types.int;
@@ -212,19 +221,26 @@ in
       documentation = [ "man:mumble-server(1)" ];
       after = [ "network.target" ];
       wants = [ "network-online.target" ];
-      preStart = lib.optionalString (passFile != null) ''
-        ${lib.getExe cfg.package} -ini ${configFile} -fg -supw "$(<"$CREDENTIALS_DIRECTORY/${superuserCredentialName}")"
+      preStart = ''
+        install -Dm600 ${configFile} ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini
+      ''
+      + lib.optionalString (cfg.settingsOverrideFile != null) ''
+        ${lib.getExe pkgs.crudini} --merge ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini < ''${CREDENTIALS_DIRECTORY}/mumble-server-settings-override.ini
+      ''
+      + lib.optionalString (passFile != null) ''
+        ${lib.getExe cfg.package} -ini ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini -fg -supw "$(<''${CREDENTIALS_DIRECTORY}/mumble-superuser-password)"
       '';
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${lib.getExe cfg.package} -ini ${configFile} -fg";
+        ExecStart = "${lib.getExe cfg.package} -ini \${RUNTIME_DIRECTORY}/mumble-server-runtime.ini -fg";
         ExecReload = "kill -s SIGUSR1 $MAINPID";
         User = cfg.user;
         Group = cfg.group;
         Restart = "always";
 
+        RuntimeDirectory = "mumble-server";
         StateDirectory = cfg.stateDir;
 
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
@@ -252,7 +268,9 @@ in
         ProtectProc = "invisible";
         PrivateMounts = true;
         PrivateUsers = true;
-        LoadCredential = lib.optionals (passFile != null) [ "${superuserCredentialName}:${passFile}" ];
+        LoadCredential =
+          (lib.optionals (passFile != null) [ "mumble-superuser-password:${passFile}" ])
+          ++ (lib.optionals (cfg.settingsOverrideFile != null) [ "mumble-server-settings-override.ini:${cfg.settingsOverrideFile}" ]);
       };
     };
   };

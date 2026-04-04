@@ -28,6 +28,7 @@
     openFirewall = true;
     superuserPwFile = config.clan.core.vars.generators.mumble-superuser-password.files."password".path;
     useACMEHost = "mumble.xaver106.de";
+    settingsOverrideFile = config.clan.core.vars.generators.mumble-server-config-override.files."mumble-server-override.ini".path;
   };
 
   clan.core.vars.generators = {
@@ -48,6 +49,34 @@
 
       script = ''
         echo "HETZNER_API_TOKEN=$(cat "$prompts"/token)" >> "$out"/hetznerAPI
+      '';
+    };
+    mumble-server-config-override = {
+      files."mumble-server-override.ini" = {
+        neededFor = "services";
+        restartUnits = [ "mumble-server.service" ];
+        secret = true;
+      };
+      prompts = {
+        "serverPassword" = {
+          description = "Mumble Server Password";
+          type = "hidden";
+          display = {
+            label = "Mumble Server Password";
+            required = false;
+            helperText = "The server password for mumble-server. Leave empty for no password.";
+          };
+        };
+      };
+
+      runtimeInputs = [
+        pkgs.coreutils
+        pkgs.crudini
+      ];
+
+      script = ''
+        touch "$out"/mumble-server-override.ini
+        crudini --set "$out"/mumble-server-override.ini "" "serverpassword" "$(<"$prompts"/serverPassword)"
       '';
     };
     mumble-superuser-password = {
