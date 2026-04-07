@@ -15,17 +15,9 @@ let
     sections.Ice = cfg.iceSettings;
     globalSection = cfg.settings;
   };
-  acmeHostDir = config.security.acme.certs."${cfg.useACMEHost}".directory;
-  passFile =
-    if (cfg.superuserPwFile != null) then
-      cfg.superuserPwFile
-    else
-      (
-        if (cfg.superuserPw != "") then
-          (pkgs.writeText "mumble-superuser-password.txt" cfg.superuserPw)
-        else
-          null
-      );
+  acmeHostDir =
+  lib.optionalString (cfg.useACMEHost != null)
+    config.security.acme.certs."${cfg.useACMEHost}".directory;
 in
 {
   options = {
@@ -67,15 +59,6 @@ in
         description = "Name of the systemd state directory under /var/lib. This directory stores the sqlite database and other server state.";
       };
 
-      superuserPw = mkOption {
-        type = types.str;
-        default = "";
-        description = ''
-          SuperUser password used by murmur --set-su-pw. This account bypasses ACL checks, so prefer superuserPwFile for secret-managed deployments.
-          The password is written to the store in plaintext, so using superuserPwFile with a secret-managed file is recommended for production deployments.
-        '';
-      };
-
       superuserPwFile = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -103,7 +86,7 @@ in
         '';
         default = { };
         type = types.submodule {
-          freeformType = settingsFormat.type;
+          freeformType = types.attrsOf settingsFormat.lib.types.atom;
           options = {
             database = mkOption {
               type = types.externalPath;
@@ -133,7 +116,7 @@ in
             serverpassword = mkOption {
               type = types.str;
               default = "";
-              description = "Server password required for clients to join when non-empty. Prefer settingsOverrideFile for secret-managed deployments.";
+              description = "Server password required for clients to join when non-empty. Secrets should be passed in via extraConfigFile!";
             };
             bandwidth = mkOption {
               type = types.int;
@@ -182,7 +165,7 @@ in
         description = "Options written to the [Ice] section of mumble-server.ini.";
         default = { };
         type = types.submodule {
-          freeformType = settingsFormat.type;
+          freeformType = types.attrsOf settingsFormat.lib.types.atom;
           options = {
             "Ice.Warn.UnknownProperties" = mkOption {
               type = types.int;
@@ -224,10 +207,10 @@ in
       preStart = ''
         install -Dm600 ${configFile} ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini
       ''
-      + lib.optionalString (cfg.settingsOverrideFile != null) ''
-        ${lib.getExe pkgs.crudini} --merge ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini < ''${CREDENTIALS_DIRECTORY}/mumble-server-settings-override.ini
+      + lib.optionalString (cfg.extraConfigFile != null) ''
+        ${lib.getExe pkgs.crudini} --merge ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini < ''${CREDENTIALS_DIRECTORY}/mumble-server-extraConfig.ini
       ''
-      + lib.optionalString (passFile != null) ''
+      + lib.optionalString (cfg.superuserPwFile != null) ''
         ${lib.getExe cfg.package} -ini ''${RUNTIME_DIRECTORY}/mumble-server-runtime.ini -fg -supw "$(<''${CREDENTIALS_DIRECTORY}/mumble-superuser-password)"
       '';
       wantedBy = [ "multi-user.target" ];
@@ -269,8 +252,8 @@ in
         PrivateMounts = true;
         PrivateUsers = true;
         LoadCredential =
-          (lib.optionals (passFile != null) [ "mumble-superuser-password:${passFile}" ])
-          ++ (lib.optionals (cfg.settingsOverrideFile != null) [ "mumble-server-settings-override.ini:${cfg.settingsOverrideFile}" ]);
+          (lib.optionals (cfg.superuserPwFile != null) [ "mumble-superuser-password:${cfg.superuserPwFile}" ])
+          ++ (lib.optionals (cfg.extraConfigFile != null) [ "mumble-server-extraConfig.ini:${cfg.extraConfigFile}" ]);
       };
     };
   };
