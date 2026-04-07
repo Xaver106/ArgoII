@@ -23,7 +23,10 @@
     openFirewall = true;
     superuserPwFile = config.clan.core.vars.generators.mumble-superuser-password.files."password".path;
     useACMEHost = "mumble.xaver106.de";
-    settingsOverrideFile = config.clan.core.vars.generators.mumble-server-config-override.files."mumble-server-override.ini".path;
+    extraConfigFile = config.clan.core.vars.generators.mumble-server-config-override.files."mumble-server-override.ini".path;
+    settings = {
+      rememberchannel = false;
+    };
   };
 
   clan.core.vars.generators = {

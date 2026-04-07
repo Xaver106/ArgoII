@@ -68,7 +68,7 @@ in
         '';
       };
 
-      settingsOverrideFile = mkOption {
+      extraConfigFile = mkOption {
         type = types.nullOr types.str;
         default = null;
         description = ''
