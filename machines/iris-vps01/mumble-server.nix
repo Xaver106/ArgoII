@@ -5,19 +5,6 @@
   ...
 }:
 {
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "admin.acme@xaver106.de";
-    certs = {
-      "mumble.xaver106.de" = {
-        dnsProvider = "hetzner";
-        environmentFile = config.clan.core.vars.generators.hetznerApiToken.files."hetznerAPI".path;
-        group = config.services.mumble-server.group;
-        reloadServices = [ "mumble-server.service" ];
-      };
-    };
-  };
-
   services.mumble-server = {
     enable = true;
     openFirewall = true;
@@ -30,25 +17,6 @@
   };
 
   clan.core.vars.generators = {
-    hetznerApiToken = {
-      prompts."token" = {
-        description = "Hetzner API Token";
-        type = "hidden";
-        display = {
-          label = "Hetzner API Token";
-          required = true;
-          helperText = "The API token for Hetzner DNS provider.";
-        };
-      };
-      files."hetznerAPI" = {
-        secret = true;
-        neededFor = "services";
-      };
-
-      script = ''
-        echo "HETZNER_API_TOKEN=$(cat "$prompts"/token)" >> "$out"/hetznerAPI
-      '';
-    };
     mumble-server-config-override = {
       files."mumble-server-override.ini" = {
         neededFor = "services";

@@ -7,5 +7,6 @@
 {
   imports = [
     ./mumble-server.nix
+    ./acme.nix
   ];
 }
