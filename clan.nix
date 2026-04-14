@@ -63,6 +63,7 @@
         prompt = true;
         share = true;
       };
+      roles.default.extraModules = [ ./users/root ];
     };
 
     # Docs: https://docs.clan.lol/latest/services/official/tor/
