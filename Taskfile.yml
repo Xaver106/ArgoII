@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  flake-update:
+    aliases: [ update, u ]
+    desc: Update flake inputs
+    cmds:
+      - nix flake update
+
+  flake-check:
+    aliases: [ fc, check ]
+    desc: Check if the flake evaluates
+    cmds:
+      - nix flake check
+
+  flake-lock:
+    aliases: [ fl, lock ]
+    desc: Add new depends to the lockfile
+    cmds:
+      - nix flake lock
+
+  commit-lockfile:
+    aliases: [ commit-lock, git-lock ]
+    desc: Commit the updated flake.lock
+    cmds:
+      - git commit flake.lock -m "updated lockfile"
