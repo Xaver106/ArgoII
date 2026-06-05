@@ -6,6 +6,7 @@
 {
   catppuccin = {
     enable = true;
+    autoEnable = true;
   };
 
   programs.fish = {
