@@ -1,0 +1,21 @@
+{
+  "nix.serverSettings": {
+
+    // settings for 'nixd' LSP
+    "nixd": {
+      "formatting": {
+        // Which command you would like to do formatting
+        "command": [ "nixfmt" ]
+      },
+      "options": {
+        "nixos": {
+          "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.iris-vps01.options"
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.iris-vps01.options.home-manager.users.type.getSubOptions []"
+        }
+      }
+    }
+  },
+  "nix.enableLanguageServer": true
+}

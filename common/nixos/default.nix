@@ -36,7 +36,7 @@ in
       dev.enable = mkDefault (!hostSpec.headless);
       firefox.enable = mkDefault (!hostSpec.headless);
       fonts.enable = mkDefault true;
-      gaming.enable = mkDefault (!hostSpec.headless && !hostSpec.distractions);
+      gaming.enable = mkDefault (!hostSpec.headless && hostSpec.distractions);
       networking.enable = mkDefault (!hostSpec.headless); # TODO: Move Networking to machines.
       obs.enable = mkDefault (!hostSpec.headless);
       plasma.enable = mkDefault (!hostSpec.headless);
