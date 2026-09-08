@@ -5,7 +5,6 @@
   ...
 }:
 {
-
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -22,8 +21,7 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "de";
-    variant = "";
+    variant = "nodeadkeys,";
   };
   console.keyMap = "de"; # Configure console keymap
-
 }

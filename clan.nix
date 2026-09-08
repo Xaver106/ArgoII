@@ -4,8 +4,10 @@
   meta.domain = "argo2.xaver106.de";
 
   inventory.machines = {
+    bunker9 = {
+      tags = [ "desktop" ];
+    };
     iris-vps01 = {
-      deploy.targetHost = "root@23.88.62.63";
       tags = [ "server" ];
     };
   };
@@ -27,11 +29,16 @@
   # Docs: See https://docs.clan.lol/latest/services/definition/
   inventory.instances = {
 
+    internet = {
+      roles.default.machines."bunker9".settings.host = "192.168.10.20";
+      roles.default.machines."iris-vps01".settings.host = "iris-vps01.xaver106.de";
+    };
+
     importer = {
       module.name = "importer";
       roles.default.tags = [ "all" ];
       roles.default.extraModules = [
-        ./common
+        ./common/nixos
         ./modules
       ];
     };
@@ -64,6 +71,19 @@
         share = true;
       };
       roles.default.extraModules = [ ./users/root ];
+    };
+
+    user-xaver106 = {
+      module = {
+        name = "users";
+      };
+      roles.default.tags = [ "all" ];
+      roles.default.settings = {
+        user = "xaver106";
+        prompt = true;
+        share = true;
+      };
+      roles.default.extraModules = [ ./users/xaver106 ];
     };
 
     # Docs: https://docs.clan.lol/latest/services/official/tor/

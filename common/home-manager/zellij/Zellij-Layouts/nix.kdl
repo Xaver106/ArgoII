@@ -1,0 +1,29 @@
+layout {
+	default_tab_template {
+        // the default zellij tab-bar and status bar plugins
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+	tab name="Shell (File Management)"
+	
+	tab name="Editor" focus=true {
+		pane command="hx" name="Helix"{
+			args "./"
+		}
+ 	}
+
+	tab name="Git" {
+		pane name="Lazygit" command="lazygit"
+	}
+
+	tab name="Shell" {
+		pane size="30%" name="Shell"
+		pane command="btop" size="70%" name="Btop"
+	}
+}

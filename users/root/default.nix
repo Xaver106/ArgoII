@@ -6,11 +6,6 @@
   ...
 }:
 {
-  
-  imports = [
-    inputs.home-manager.nixosModules.default
-  ];
-
   users.users.root = {
     shell = pkgs.fish;
   };
@@ -22,9 +17,5 @@
       username = "root";
       homeDirectory = "/root";
     };
-    imports = [
-      ./home
-      inputs.catppuccin.homeModules.catppuccin
-    ];
   };
 }
