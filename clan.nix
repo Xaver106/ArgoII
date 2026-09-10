@@ -48,6 +48,7 @@
     # Generates persistent host keys and configures authorized keys.
     sshd = {
       roles.server.tags.all = { };
+      roles.client.tags = [ "all" ];
       roles.server.settings.authorizedKeys = {
         # Insert the public key that you want to use for SSH access.
         # All keys will have ssh access to all machines ("tags.all" means 'all machines').
@@ -77,7 +78,7 @@
       module = {
         name = "users";
       };
-      roles.default.tags = [ "all" ];
+      roles.default.tags = [ "desktop" ];
       roles.default.settings = {
         user = "xaver106";
         prompt = true;

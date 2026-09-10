@@ -35,12 +35,15 @@ in
       git.enable = mkDefault true;
       mpv.enable = mkDefault (!homeSpec.headless);
       kitty.enable = mkDefault (!homeSpec.headless);
-      espanso.enable = mkDefault true;
+      espanso.enable = mkDefault (!homeSpec.headless);
       dolphin-shred.enable = mkDefault (!homeSpec.headless);
     };
 
     # Fix wrong cursor on x11 windows
-    home.file.".icons/default".source = mkIf (!homeSpec.headless) "${pkgs.kdePackages.breeze}/share/icons/breeze_cursors";
+    home.file.".icons/default" = {
+      enable = (!homeSpec.headless);
+      source =  "${pkgs.kdePackages.breeze}/share/icons/breeze_cursors";
+    };
 
     # === Catppuccin ===
     catppuccin = {
@@ -51,9 +54,6 @@ in
     # === Fish Shell ===
     programs.fish = {
       enable = true;
-      shellInit = ''
-          devenv hook fish | source
-        '';
     };
 
     # === Bat ===
@@ -78,6 +78,11 @@ in
 
     # === Btop ===
     programs.btop = {
+      enable = true;
+    };
+
+    # === Devenv ===
+    programs.devenv = {
       enable = true;
     };
 

@@ -19,6 +19,10 @@
       }
     ];
 
+    hostSpec = {
+      headless = true;
+    };
+
     # Check https://wiki.nixos.org/wiki/Install_NixOS_on_Hetzner_Cloud
     systemd.network.enable = true;
     systemd.network.networks."30-wan" = {
