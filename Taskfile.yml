@@ -1,6 +1,26 @@
 version: '3'
 
 tasks:
+  local-rebuild:*:
+    aliases: [ lrb:* ]
+    desc: rebuild this system, without clan
+    vars:
+      REBUILD_OPERATION: '{{index .MATCH 0}}'
+      NIX_CONF_DIR: '{{.TASKFILE_DIR}}'
+      HOST:
+        sh: hostname
+    cmds:
+      - sudo systemd-inhibit nixos-rebuild {{.REBUILD_OPERATION}} --flake {{.TASKFILE_DIR}}#{{.HOST}}
+    requires:
+      vars:
+        - name: REBUILD_OPERATION
+          enum: [ switch, boot ]
+
+  local-rebuild:
+    aliases: [ lrb ]
+    cmds:
+      - task: local-rebuild:switch
+  
   flake-update:
     aliases: [ update, u ]
     desc: Update flake inputs
