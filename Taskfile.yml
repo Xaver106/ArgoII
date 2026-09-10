@@ -43,4 +43,4 @@ tasks:
     aliases: [ commit-lock, git-lock ]
     desc: Commit the updated flake.lock
     cmds:
-      - git commit flake.lock -m "updated lockfile"
+      - 'git commit flake.lock -m "chore(flake): updated lockfile"'
