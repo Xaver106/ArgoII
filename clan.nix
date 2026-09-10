@@ -31,7 +31,7 @@
 
     internet = {
       roles.default.machines."bunker9".settings.host = "192.168.10.20";
-      roles.default.machines."iris-vps01".settings.host = "iris-vps01.xaver106.de";
+      roles.default.machines."iris-vps01".settings.host = "iris-vps01.argo2.xaver106.de";
     };
 
     importer = {
