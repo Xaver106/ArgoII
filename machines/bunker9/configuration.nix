@@ -39,7 +39,8 @@
     loader = {
       systemd-boot = {
         enable = true; # NOTE: Overidden by secure-boot.nix (Kept as backup)
-        edk2-uefi-shell.enable = true;
+        editor = false;
+        edk2-uefi-shell.enable = false;
       };
       efi.canTouchEfiVariables = true;
     };
