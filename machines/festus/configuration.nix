@@ -9,7 +9,7 @@
     inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
   ];
 
-  networking.hostName = "Festus";
+  networking.hostName = "festus";
   hostSpec = {
     headless = false;
     distractions = true;
