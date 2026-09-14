@@ -7,6 +7,9 @@
     bunker9 = {
       tags = [ "desktop" ];
     };
+    festus = {
+      tags = [ "desktop" ];
+    };
     iris-vps01 = {
       tags = [ "server" ];
     };
