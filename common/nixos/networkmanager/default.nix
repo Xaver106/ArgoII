@@ -5,14 +5,14 @@
   ...
 }:
 let
-  cfg = config.common.networking;
+  cfg = config.common.networkmanager;
   inherit (lib) mkEnableOption mkDefault mkIf;
   inherit (config) hostSpec;
 in
 {
 
-  options.common.networking = {
-    enable = mkEnableOption "networking";
+  options.common.networkmanager = {
+    enable = mkEnableOption "networkmanager";
   };
 
   config = mkIf cfg.enable {
@@ -34,17 +34,5 @@ in
       # networkmanager-sstp
       # networkmanager-iodine
     ];
-
-    services.tailscale = {
-      enable = mkDefault true;
-      openFirewall = true;
-    };
-
-    programs = {
-      localsend = {
-        enable = mkDefault (!hostSpec.headless);
-        openFirewall = true;
-      };
-    };
   };
 }

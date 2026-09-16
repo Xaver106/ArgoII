@@ -33,11 +33,9 @@ in
     common = {
       audio.enable = mkDefault (!hostSpec.headless);
       bluetooth.enable = mkDefault (!hostSpec.headless);
-      dev.enable = mkDefault (!hostSpec.headless); # TODO: Move to user packages
-      firefox.enable = mkDefault (!hostSpec.headless);
       fonts.enable = mkDefault (!hostSpec.headless);
       gaming.enable = mkDefault (!hostSpec.headless && hostSpec.distractions);
-      networking.enable = mkDefault (!hostSpec.headless); # TODO: Move Networking to machines.
+      networkmanager.enable = mkDefault (!hostSpec.headless);
       obs.enable = mkDefault (!hostSpec.headless);
       plasma.enable = mkDefault (!hostSpec.headless);
       printing.enable = mkDefault (!hostSpec.headless);
@@ -52,6 +50,10 @@ in
     services = {
       flatpak.enable = mkDefault (!hostSpec.headless); # Enables Flatpak
       teamviewer.enable = mkDefault (!hostSpec.headless); # Remote Desktop
+      tailscale = {
+        enable = mkDefault false;
+        openFirewall = true;
+      };
     };
 
     programs = {
@@ -60,11 +62,20 @@ in
         enable = mkDefault (!hostSpec.headless);
         openFirewall = mkDefault true;
       };
-    };
-
-    programs.appimage = {
-      enable = mkDefault true;
-      binfmt = mkDefault true;
+      localsend = {
+        enable = mkDefault (!hostSpec.headless);
+        openFirewall = true;
+      };
+      appimage = {
+        enable = mkDefault true;
+        binfmt = mkDefault true;
+      };
+      firefox = {
+        enable = mkDefault (!hostSpec.headless);
+        preferences = {
+          "widget.use-xdg-desktop-portal.file-picker" = 1; # force KDE Filepicker
+        };
+      };
     };
   };
 }

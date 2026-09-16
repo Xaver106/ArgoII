@@ -13,11 +13,33 @@ in
     # CLI only Packages
     
     # Calculators
-    # programmer-calculator # Terminal calculator for programmers
+    programmer-calculator # Terminal calculator for programmers
     bitwise # Terminal based bitwise calculator in curses
     ipcalc # Simple IP network calculator
     kalker # Command line calculator with math functions
     rink # Unit-aware calculator with currency support
+
+    # File Managers
+    ranger # Vim-like file manager
+    lf # Terminal file manager written in Go and heavily inspired by ranger
+
+    # Shell Utilities
+    killall # Process killer
+    fzf # Fuzzy finder
+    pandoc # Document converter
+    unixtools.net-tools # Internet tools
+
+    # System Monitoring
+    btop # Resource monitor
+    dust # Disk usage analyzer
+
+    # File System
+    fdupes # Find duplicate files
+    f3 # Fight Flash Fraud
+
+    # Network Tools
+    dig # DNS lookup
+    cfspeedtest # Internet speed test
 
   ] ++ optionals (!homeSpec.headless) [ 
     # Desktop
@@ -103,12 +125,35 @@ in
 
     # 3D Printing
     prusa-slicer
-    freecad
+    stable.freecad
     blender
 
     # ReMarkable
     rmview
     remarkable-mouse
+
+    # === Development ===
+
+    # Formatter
+    treefmt # one CLI to format the code tree
+
+    # Nix
+    nil # Nix LSP
+    nixd
+    nixfmt # Nix formatter
+
+    # Typst
+    typst # Markup-based typesetting
+    tinymist # Typst LSP
+
+    # Yaml
+    yaml-language-server # Language Server for YAML Files
+
+    # Markdown
+    marksman # Language Server for Markdown
+
+    # TOML
+    taplo # TOML toolkit
 
   ] ++ optionals homeSpec.distractions [
     
