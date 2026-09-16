@@ -5,6 +5,10 @@
   inputs,
   ...
 }:
+let
+  inherit (lib) optional;
+  inherit (config) hostSpec;
+in
 {
 
   # Home Manager is imported and configured centrally in hosts/common/home-manager
@@ -21,8 +25,7 @@
       "dialout"
       "input"
       "video"
-      "wheel"
-    ];
+    ] ++ optional hostSpec.distractions "wheel";
     /*
       libvirtd: Virtualisation Authentication access
       networkmanager: Allow user to use networkmanager to manage network connections
