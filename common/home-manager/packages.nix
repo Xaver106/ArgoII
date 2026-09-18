@@ -125,7 +125,7 @@ in
 
     # 3D Printing
     prusa-slicer
-    stable.freecad
+    freecad
     blender
 
     # ReMarkable
