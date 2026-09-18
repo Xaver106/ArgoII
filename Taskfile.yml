@@ -44,3 +44,10 @@ tasks:
     desc: Commit the updated flake.lock
     cmds:
       - 'git commit flake.lock -m "chore(flake): updated lockfile"'
+
+  garbage-collect:
+    aliases: [ gc ]
+    desc: Delete old profiles and run garbage collector
+    cmds:
+      - sudo nix-collect-garbage -d
+      - sudo /run/current-system/bin/switch-to-configuration boot
