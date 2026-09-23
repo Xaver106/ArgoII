@@ -4,10 +4,9 @@
   lib,
   ...
 }:
-with lib;
-
 let
   cfg = config.common.virtualisation;
+  inherit (lib) mkIf mkEnableOption mkDefault;
 in
 {
 
@@ -24,21 +23,27 @@ in
       # VM imaging tools
       # libguestfs-with-appliance # Tools for accessing and modifying virtual machine disk images
       virtiofsd
+
+      nur.repos.ataraxiasjel.waydroid-script
+      waydroid-helper
     ];
 
     virtualisation = {
       libvirtd = {
-        enable = true;
+        enable = mkDefault true;
         qemu.swtpm.enable = true; # Alow TPM Emulation
         qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
       };
-      spiceUSBRedirection.enable = true; # Enable USB Redirection with Spice NOTE: this allows users arbitrary access to USB devices!
+      spiceUSBRedirection.enable = mkDefault true; # Enable USB Redirection with Spice NOTE: this allows users arbitrary access to USB devices!
       # Android Virtualisation
-      waydroid.enable = true;
+      waydroid = {
+        enable = mkDefault true;
+        package = pkgs.waydroid-nftables;
+      };
     };
 
     # if you use libvirtd on a desktop environment
-    programs.virt-manager.enable = true; # can be used to manage non-local hosts as well
+    programs.virt-manager.enable = mkDefault true; # can be used to manage non-local hosts as well
 
   };
 }

@@ -15,6 +15,8 @@
     distractions = true;
   };
 
+  common.virtualisation.enable = true;
+
   environment.systemPackages = with pkgs; [
     framework-tool
     framework-tool-tui
