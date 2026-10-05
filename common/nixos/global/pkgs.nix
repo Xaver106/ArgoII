@@ -21,6 +21,7 @@
 
     # Terminal Multiplexers
     zellij # Modern terminal multiplexer
+    kitty.terminfo # Install Kitty Terminfo on all machines
 
     # Hardware Info
     lshw # List hardware

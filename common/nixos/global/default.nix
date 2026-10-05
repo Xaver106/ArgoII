@@ -23,7 +23,6 @@ in
     overlays.stable-packages
   ];
 
-  environment.enableAllTerminfo = hostSpec.headless;
   users.mutableUsers = false;
 
   catppuccin = {
