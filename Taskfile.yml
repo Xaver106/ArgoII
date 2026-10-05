@@ -14,7 +14,7 @@ tasks:
     requires:
       vars:
         - name: REBUILD_OPERATION
-          enum: [ switch, boot ]
+          enum: [ switch, boot, build, test ]
 
   local-rebuild:
     aliases: [ lrb ]
