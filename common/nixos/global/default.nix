@@ -8,6 +8,7 @@
 }:
 let
   overlays = import ../../../overlays { inherit inputs; };
+  inherit (config) hostSpec;
 in
 {
   imports = [
@@ -22,7 +23,7 @@ in
     overlays.stable-packages
   ];
 
-  environment.enableAllTerminfo = true;
+  environment.enableAllTerminfo = hostSpec.headless;
   users.mutableUsers = false;
 
   catppuccin = {
