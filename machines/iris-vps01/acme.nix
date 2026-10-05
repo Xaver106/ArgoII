@@ -11,6 +11,7 @@
     certs = {
       "mumble.xaver106.de" = {
         dnsProvider = "hetzner";
+        dnsResolver = "1.1.1.1:53";
         environmentFile = config.clan.core.vars.generators.hetznerApiToken.files."hetznerAPI".path;
         group = config.services.mumble-server.group;
         reloadServices = [ "mumble-server.service" ];
