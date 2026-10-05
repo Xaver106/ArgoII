@@ -7,6 +7,7 @@
 {
   services.mumble-server = {
     enable = true;
+    package = pkgs.stable.murmur;
     openFirewall = true;
     superuserPwFile = config.clan.core.vars.generators.mumble-superuser-password.files."password".path;
     useACMEHost = "mumble.xaver106.de";
