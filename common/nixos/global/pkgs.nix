@@ -33,6 +33,7 @@
     ntfs3g # NTFS support
     exfatprogs
     lvm2
+    compsize # Find compression type/ratio on a file or set of files in the Btrfs filesystem
 
     # Network Tools
     wget # File download
