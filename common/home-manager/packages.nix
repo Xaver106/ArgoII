@@ -104,7 +104,6 @@ in
     hunspell
     hunspellDicts.de_DE
     hunspellDicts.en_US
-    zotero
     geogebra6
     speedcrunch
     kdePackages.kalgebra
