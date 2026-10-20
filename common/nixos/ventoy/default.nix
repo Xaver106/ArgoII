@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
 
     nixpkgs.config.permittedInsecurePackages = [
-      "ventoy-qt5-1.1.17"
+      "ventoy-qt5-1.1.18"
     ];
 
     environment.systemPackages = with pkgs; [
