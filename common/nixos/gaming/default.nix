@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     # XBOX Controller support
-    hardware.xone.enable = true;
+    # hardware.xone.enable = true; # NOTE: Currently broken: https://github.com/NixOS/nixpkgs/pull/576469
 
     boot.kernelModules = [ "ntsync" ]; # Enable the new ntsync module
 

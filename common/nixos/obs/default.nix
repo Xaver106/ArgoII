@@ -18,7 +18,7 @@ in
 
     programs.obs-studio = {
       enable = true;
-      enableVirtualCamera = true;
+      enableVirtualCamera = false; # NOTE: Currently broken: https://github.com/NixOS/nixpkgs/pull/577221
       plugins = with pkgs.obs-studio-plugins; [
         wlrobs
         obs-backgroundremoval
