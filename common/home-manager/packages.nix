@@ -87,7 +87,7 @@ in
     vlc
     mkvtoolnix
     losslesscut-bin
-    audacity
+    # audacity # NOTE: Currently broken: https://github.com/NixOS/nixpkgs/pull/577022
     inkscape
     gimp
     qimgv
