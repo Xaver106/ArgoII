@@ -38,5 +38,9 @@
     # Network Tools
     wget # File download
 
+    # Nix tools
+    nix-tree
+    nix-sweep
+    nvd
   ];
 }
