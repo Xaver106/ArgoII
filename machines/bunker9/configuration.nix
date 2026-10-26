@@ -35,7 +35,6 @@
   
   # Bootloader.
   boot = {
-    initrd.systemd.enable = true;
     loader = {
       systemd-boot = {
         enable = true; # NOTE: Overidden by secure-boot.nix (Kept as backup)
