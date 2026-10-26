@@ -6,8 +6,7 @@
 }:
 {
   imports = [
-    # NOTE: Currently broken. https://github.com/NixOS/nixpkgs/pull/575818
-    # inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
+    inputs.nixos-hardware.nixosModules.framework-11th-gen-intel
   ];
 
   networking.hostName = "festus";
