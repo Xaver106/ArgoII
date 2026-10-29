@@ -88,10 +88,9 @@ in
     mkvtoolnix
     losslesscut-bin
     # audacity # NOTE: Currently broken: https://github.com/NixOS/nixpkgs/pull/577022
-    inkscape
+    # inkscape
     gimp
     qimgv
-    digikam
     switcheroo
     curtail
     converseen
