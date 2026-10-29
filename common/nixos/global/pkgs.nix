@@ -41,6 +41,7 @@
     # Nix tools
     nix-tree
     nix-sweep
+    nix-forecast
     nvd
   ];
 }
