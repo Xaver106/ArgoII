@@ -27,12 +27,19 @@ in
       default = false;
       description = "Whether to enable distractions in the host environment.";
     };
+    hasIPv6Internet = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Wether this device has IPv6 internet.";
+    };
   };
 
   config = {
     common = {
       audio.enable = mkDefault (!hostSpec.headless);
       bluetooth.enable = mkDefault (!hostSpec.headless);
+      distraction-free.enable = mkDefault (!hostSpec.headless);
+      dnscrypt.enable = mkDefault (!hostSpec.headless);
       fonts.enable = mkDefault (!hostSpec.headless);
       gaming.enable = mkDefault (!hostSpec.headless && hostSpec.distractions);
       networkmanager.enable = mkDefault (!hostSpec.headless);
