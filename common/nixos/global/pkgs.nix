@@ -42,6 +42,7 @@
     nix-tree
     nix-sweep
     nix-forecast
-    nvd
+    dix
+    nh
   ];
 }
