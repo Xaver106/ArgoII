@@ -38,8 +38,9 @@ in
     common = {
       audio.enable = mkDefault (!hostSpec.headless);
       bluetooth.enable = mkDefault (!hostSpec.headless);
-      distraction-free.enable = mkDefault (!hostSpec.headless);
+      distractionFreeMode.enable = mkDefault (!hostSpec.headless);
       dnscrypt.enable = mkDefault (!hostSpec.headless);
+      firefox.enable = mkDefault (!hostSpec.headless);
       fonts.enable = mkDefault (!hostSpec.headless);
       gaming.enable = mkDefault (!hostSpec.headless && hostSpec.distractions);
       networkmanager.enable = mkDefault (!hostSpec.headless);
@@ -76,12 +77,6 @@ in
       appimage = {
         enable = mkDefault true;
         binfmt = mkDefault true;
-      };
-      firefox = {
-        enable = mkDefault (!hostSpec.headless);
-        preferences = {
-          "widget.use-xdg-desktop-portal.file-picker" = 1; # force KDE Filepicker
-        };
       };
     };
   };

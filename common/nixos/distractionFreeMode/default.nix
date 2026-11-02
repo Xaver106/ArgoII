@@ -5,18 +5,18 @@
   ...
 }:
 let
-  cfg = config.common.distraction-free;
+  cfg = config.common.distractionFreeMode;
   inherit (lib) mkEnableOption mkIf mkForce;
 in
 {
 
-  options.common.distraction-free = {
-    enable = mkEnableOption "distraction-free";
+  options.common.distractionFreeMode = {
+    enable = mkEnableOption "distractionFreeMode";
   };
 
   config = mkIf cfg.enable {
     specialisation = {
-      "distraction-free".configuration = {
+      "distractionFreeMode".configuration = {
         hostSpec = {
           distractions = mkForce false;
         };
