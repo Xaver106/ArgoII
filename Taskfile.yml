@@ -21,15 +21,16 @@ tasks:
     aliases: [ lrb ]
     cmds:
       - task: local-rebuild:switch
+      - dix last
 
-  check-cache:
+  forecast:
     cmds:
       - nix-forecast -s -c ".#nixosConfigurations.{{.HOST}}" | grep -v -e 'fish-completions' -e '\.patch' -e '\.service' -e '\.desktop' -e '\.conf' -e '\.sh'
   
   compare:
     deps: [lrb:build]
     cmds:
-      - nvd diff /run/current-system ./result
+      - dix diff /run/current-system ./result
       - rm result
   
   flake-update:
