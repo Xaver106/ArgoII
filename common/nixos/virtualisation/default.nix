@@ -24,7 +24,6 @@ in
       # libguestfs-with-appliance # Tools for accessing and modifying virtual machine disk images
       virtiofsd
 
-      nur.repos.ataraxiasjel.waydroid-script
       waydroid-helper
     ];
 

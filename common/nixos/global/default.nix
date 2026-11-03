@@ -13,7 +13,6 @@ in
 {
   imports = [
     inputs.catppuccin.nixosModules.catppuccin
-    inputs.nur.modules.nixos.default
   ]
   ++ customLib.importFiles ./.;
 
