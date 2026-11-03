@@ -13,6 +13,9 @@
     iris-vps01 = {
       tags = [ "server" ];
     };
+    terminus = {
+      tags = [ "server" ];
+    };
   };
 
   secrets.age.plugins = [
@@ -35,7 +38,7 @@
     internet = {
       roles.default.machines."bunker9".settings.host = "192.168.10.20";
       roles.default.machines."festus".settings.host = "192.168.10.21";
-      roles.default.machines."iris-vps01".settings.host = "iris-vps01.argo2.xaver106.de";
+      roles.default.machines."terminus".settings.host = "terminus.argo2.xaver106.de";
     };
 
     importer = {
