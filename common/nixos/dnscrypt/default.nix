@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.common.dnscrypt;
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf concatMapStringsSep concatStringsSep;
   inherit (config) hostSpec;
 
   # Empty list -> empty file when distractions are allowed
@@ -24,6 +24,20 @@ let
   certFile = "${certDir}/cert.pem";
   keyFile = "${certDir}/key.pem";
   credDir = "/run/credentials/${config.systemd.services.dnscrypt-proxy.name or "dnscrypt-proxy.service"}";
+
+  forwardingRules = [
+    {
+      domain = "fritz.box";
+      resolver = [ "192.168.10.1" "$DHCP" ];
+    }
+    {
+      domain = "local";
+      resolver = [ "192.168.10.1" "$DHCP" ];
+    }
+  ];
+  forwardingRuleFile = pkgs.writeText "forwarding-rules.txt" (
+    concatMapStringsSep "\n" (fr: "${fr.domain} ${concatStringsSep "," fr.resolver}") forwardingRules
+  );
 
   bypassResolvers = [
     "2620:fe::fe"
@@ -111,7 +125,6 @@ in
     };
 
     services.dnscrypt-proxy = {
-      # TODO: Forwarding for .local and fritz.box to DHCP or local DNS directly
       enable = true;
       settings = {
 
@@ -126,6 +139,7 @@ in
           "9.9.9.11:53"
           "1.1.1.1:53"
         ];
+        forwarding_rules = forwardingRuleFile;
 
         local_doh = {
           listen_addresses = [ "127.0.0.1:${toString dohPort}" ];
