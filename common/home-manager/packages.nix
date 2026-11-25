@@ -59,6 +59,7 @@ in
     element-desktop
     vesktop
     mumble
+    teamspeak6-client
     thunderbird
 
     # Development
@@ -103,6 +104,7 @@ in
     hunspell
     hunspellDicts.de_DE
     hunspellDicts.en_US
+    freeplane
     geogebra6
     speedcrunch
     kdePackages.kalgebra
