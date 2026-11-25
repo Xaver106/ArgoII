@@ -5,6 +5,9 @@
   inputs,
   ...
 }:
+let
+  inherit (lib) mkForce;
+in
 {
   users.users.root = {
     shell = pkgs.fish;
@@ -17,5 +20,6 @@
       username = "root";
       homeDirectory = "/root";
     };
+    homeSpec.headless = mkForce true;
   };
 }

@@ -54,7 +54,7 @@
     # SSH service for secure remote access to machines.
     # Generates persistent host keys and configures authorized keys.
     sshd = {
-      roles.server.tags.all = { };
+      roles.server.tags = [ "all" ];
       roles.client.tags = [ "all" ];
       roles.server.settings.authorizedKeys = {
         # Insert the public key that you want to use for SSH access.
@@ -72,7 +72,7 @@
       module = {
         name = "users";
       };
-      roles.default.tags = [ "server" ];
+      roles.default.tags = [ "all" ];
       roles.default.settings = {
         user = "root";
         prompt = true;
