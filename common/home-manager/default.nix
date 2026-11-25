@@ -35,7 +35,7 @@ in
       git.enable = mkDefault true;
       mpv.enable = mkDefault (!homeSpec.headless);
       kitty.enable = mkDefault (!homeSpec.headless);
-      espanso.enable = mkDefault (!homeSpec.headless);
+      espanso.enable = mkDefault ((!homeSpec.headless) && homeSpec.distractions);
       dolphin-shred.enable = mkDefault (!homeSpec.headless);
     };
 
