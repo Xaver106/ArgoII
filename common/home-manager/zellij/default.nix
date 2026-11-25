@@ -26,6 +26,9 @@ in
       settings = {
         mouse_hover_effects = false;
         pane_frame_style = "full";
+        show_startup_tips = false;
+        show_setup_screen = false;
+        on_quit = "quit";
       };
     };
 
