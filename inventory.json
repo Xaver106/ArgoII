@@ -1,8 +1,5 @@
 {
   "machines": {
-    "iris-vps01": {
-      "installedAt": 1775248793
-    },
     "festus": {
       "installedAt": 1789403169
     },
