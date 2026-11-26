@@ -10,9 +10,6 @@
     festus = {
       tags = [ "desktop" ];
     };
-    iris-vps01 = {
-      tags = [ "server" ];
-    };
     terminus = {
       tags = [ "server" ];
     };
